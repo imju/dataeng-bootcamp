@@ -91,7 +91,7 @@ load = PythonOperator(
     python_callable = load,
     params = {
         'schema': 'imju_hello',
-        'table': 'test_table_2'
+        'table': 'test_table_4'
     },
     provide_context=True,
     dag = dag_second_assignment)
