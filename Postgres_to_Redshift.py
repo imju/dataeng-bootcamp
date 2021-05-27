@@ -11,7 +11,7 @@ dag = DAG(
     schedule_interval="@once",
     max_active_runs=1,
     concurrency=2,
-    start_date=datetime(2021, 5, 20),
+    start_date=datetime(2021, 5, 26),
     catchup=False
 )
 
@@ -28,8 +28,8 @@ s3_bucket = 'grepp-data-engineering'
 # 다음은 각자 상황에 맞게 수정
 #
 local_dir = '/var/lib/airflow/data/'  # 이를 꼭 본인의 airflow 서버에서 디렉토리로 만들어주어야 함. 실제 프로덕션에서는 공간이 충분한 폴더 (volume)로 맞춰준다
-s3_key_prefix = '...'  # 본인의 ID에 맞게 수정
-schema = 'raw_data'    # 본인이 사용하는 스키마에 맞게 수정
+s3_key_prefix = 'imju_hello'  # 본인의 ID에 맞게 수정
+schema = 'imju_hello'    # 본인이 사용하는 스키마에 맞게 수정
 
 
 prev_task = None
