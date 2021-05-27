@@ -44,11 +44,11 @@ def transform(text):
 def load(lines):
     logging.info("load started")
     cur = get_Redshift_connection()
-    sql = "BEGIN;DELETE FROM raw_data.name_gender;"
+    sql = "BEGIN;DELETE FROM imju_hello.test_table_1;"
     for l in lines:
         if l != '':
             (name, gender) = l.split(",")
-            sql += "INSERT INTO raw_data.name_gender VALUES ('{name}', '{gender}');"
+            sql += "INSERT INTO imju_hello.test_table_1 VALUES ('{name}', '{gender}');"
     sql += "END;"
     logging.info(sql)
     """

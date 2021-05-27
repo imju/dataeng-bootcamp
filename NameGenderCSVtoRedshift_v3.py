@@ -49,12 +49,12 @@ def load(**context):
     lines = context["task_instance"].xcom_pull(key="return_value", task_ids="transform")
     lines = iter(lines)
     next(lines)
-    sql = "BEGIN; DELETE FROM imju_hello.test_table_2;".format(schema=schema, table=table)
+    sql = "BEGIN; DELETE FROM {schema}.{table};".format(schema=schema, table=table)
     for line in lines:
         if line != "":
             (name, gender) = line.split(",")
             print(name, "-", gender)
-            sql += """INSERT INTO imju_hello.test_table_2 VALUES ('{name}', '{gender}');""".format(schema=schema, table=table, name=name, gender=gender)
+            sql += """INSERT INTO {schema}.{table} VALUES ('{name}', '{gender}');""".format(schema=schema, table=table, name=name, gender=gender)
     sql += "END;"
 
     logging.info(sql)
@@ -94,7 +94,7 @@ load = PythonOperator(
     task_id = 'load',
     python_callable = load,
     params = {
-        'schema': 'raw_data',
+        'schema': 'Imju',
         'table': 'name_gender'
     },
     provide_context=True,
