@@ -19,21 +19,28 @@ def extract(**context):
     link = context["params"]["url"]
     task_instance = context['task_instance']
     execution_date = context['execution_date']
-
+    logging.info("extract in")
+    logging.info("link:"+link)
     logging.info(execution_date)
     f = requests.get(link)
+    logging.info("extract out")    
     return (f.text)
 
 
 def transform(**context):
+    logging.info("transform in")    
     text = context["task_instance"].xcom_pull(key="return_value", task_ids="extract")
     lines = text.split("\n")[1:]
+    logging.info("transform out")    
     return lines
 
 
 def load(**context):
     schema = context["params"]["schema"]
     table = context["params"]["table"]
+    logging.info("load in")
+    logging.info("schema:"+schema)
+    logging.info("table:"+table)    
     
     cur = get_Redshift_connection()
     lines = context["task_instance"].xcom_pull(key="return_value", task_ids="transform")
