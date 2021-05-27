@@ -83,8 +83,8 @@ load = PythonOperator(
     task_id = 'load',
     python_callable = load,
     params = {
-        'schema': 'raw_data',   ## 자신의 스키마로 변경
-        'table': 'name_gender'
+        'schema': 'imju_hello',
+        'table': 'test_table_2'
     },
     provide_context=True,
     dag = dag_second_assignment)
