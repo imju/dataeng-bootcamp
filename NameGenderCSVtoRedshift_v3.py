@@ -10,8 +10,8 @@ import psycopg2
 
 def get_Redshift_connection():
     host = "learnde.cduaw970ssvt.ap-northeast-2.redshift.amazonaws.com"
-    redshift_user = ""  # 본인 ID 사용
-    redshift_pass = ""  # 본인 Password 사용
+    redshift_user = "imju_hello"
+    redshift_pass = "Imju_Hello!1"
     port = 5439
     dbname = "prod"
     conn = psycopg2.connect("dbname={dbname} user={user} host={host} password={password} port={port}".format(
@@ -49,12 +49,12 @@ def load(**context):
     lines = context["task_instance"].xcom_pull(key="return_value", task_ids="transform")
     lines = iter(lines)
     next(lines)
-    sql = "BEGIN; DELETE FROM {schema}.{table};".format(schema=schema, table=table)
+    sql = "BEGIN; DELETE FROM imju_hello.test_table_1;".format(schema=schema, table=table)
     for line in lines:
         if line != "":
             (name, gender) = line.split(",")
             print(name, "-", gender)
-            sql += """INSERT INTO {schema}.{table} VALUES ('{name}', '{gender}');""".format(schema=schema, table=table, name=name, gender=gender)
+            sql += """INSERT INTO imju_hello.test_table_1 VALUES ('{name}', '{gender}');""".format(schema=schema, table=table, name=name, gender=gender)
     sql += "END;"
 
     logging.info(sql)
@@ -63,7 +63,7 @@ def load(**context):
 
 dag_second_assignment = DAG(
     dag_id = 'second_assignment_v3',
-    start_date = datetime(2021,5,20), # 날짜가 미래인 경우 실행이 안됨
+    start_date = datetime(2021,5,25), # 날짜가 미래인 경우 실행이 안됨
     schedule_interval = '0 2 * * *',  # 적당히 조절
     max_active_runs = 1,
     default_args = {
