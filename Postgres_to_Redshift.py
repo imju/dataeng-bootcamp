@@ -17,7 +17,9 @@ dag = DAG(
 
 tables = [
     "customer_features",
-    "customer_variants"
+    "customer_variants",
+    "item_features",
+    "customer_interactions"
 ]
 
 
